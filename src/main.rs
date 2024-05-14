@@ -26,7 +26,7 @@ fn switch(route: Route) -> Html {
         Route::Home => html! { <pages::home::Home /> },
         Route::Login => html! { <pages::login::Login /> },
         Route::NotFound => html! { <pages::not_found::NotFound /> },
-        _ => html! { <pages::login::Login /> }
+        _ => html! { <pages::home::Home /> }
     }
 }
 
