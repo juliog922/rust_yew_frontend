@@ -6,6 +6,13 @@ use serde_json::json;
 
 use super::APP_HOST;
 
+#[derive(PartialEq)]
+pub struct User {
+    pub id: i32,
+    pub username: String,
+    pub created_at: String,
+}
+
 #[derive(Deserialize)]
 pub struct LoginResponse {
     pub token: String,
@@ -16,7 +23,6 @@ pub struct MeResponse {
     pub id: i32,
     pub username: String,
     pub created_at: String,
-
 }
 
 pub async fn api_login(username:String, password: String) -> Result<LoginResponse, Error>{

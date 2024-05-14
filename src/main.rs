@@ -2,6 +2,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 
 mod api;
+mod contexts;
 mod pages;
 mod components;
 
@@ -33,7 +34,9 @@ fn switch(route: Route) -> Html {
 fn app() -> Html {
     html!{
         <BrowserRouter>
-            <Switch<Route> render={switch}/>
+            <contexts::CurrentUserProvider>
+                <Switch<Route> render={switch} />
+            </contexts::CurrentUserProvider>
         </BrowserRouter>
     }
 }
