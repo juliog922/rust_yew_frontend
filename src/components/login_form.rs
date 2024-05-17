@@ -28,7 +28,8 @@ async fn login(username: String, password: String) -> Result<(LoginResponse, MeR
 
 #[function_component(LoginForm)]
 pub fn login_form() -> Html {
-    let navigator = use_navigator();
+    let navigator = use_navigator()
+        .expect("Navigator not available");
     let current_user_ctx = use_context::<CurrentUserContext>()
         .expect("Current user context is missing");
 
@@ -76,9 +77,8 @@ pub fn login_form() -> Html {
                         login_response: Some(responses.0),
                         me_response: Some(responses.1)
                     });
-                    if let Some(nav) = cloned_navigator {
-                        nav.push(&Route::Home);
-                    }
+                    cloned_navigator.push(&Route::Home);
+
                 },
                 Err(e) => cloned_error_handle.set(e.to_string()),
             }

@@ -1,5 +1,3 @@
-use std::env::current_exe;
-
 use yew::prelude::*;
 use yew_router::prelude::*;
 use chrono::NaiveDateTime;

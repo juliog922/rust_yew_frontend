@@ -9,7 +9,9 @@ pub fn home() -> Html {
     html! {
         <div class="container-fluid bg-gradient d-flex align-items-center justify-content-center min-vh-100">
             <div class="row">
+                <div class="col-sm-auto">
                 <SideBar />
+                </div>
                 <div class="col-md-8 offset-md-2">  
                     <Header />
                 </div>

@@ -4,6 +4,7 @@ use yew_router::prelude::*;
 mod api;
 mod contexts;
 mod pages;
+mod hooks;
 mod components;
 
 #[derive(Routable, PartialEq, Clone)]
@@ -12,6 +13,8 @@ enum Route {
     Home,
     #[at("/rustaceans")]
     Rustaceans,
+    #[at("/rustaceans/add")]
+    RustaceansAdd,
     #[at("/crates")]
     Crates,
     #[at("/login")]
@@ -26,6 +29,8 @@ fn switch(route: Route) -> Html {
         Route::Home => html! { <pages::home::Home /> },
         Route::Login => html! { <pages::login::Login /> },
         Route::NotFound => html! { <pages::not_found::NotFound /> },
+        Route::Rustaceans => html! { <pages::rustaceans::index::Rustaceans /> },
+        Route::RustaceansAdd => html! { <pages::rustaceans::add::RustaceansAdd /> },
         _ => html! { <pages::home::Home /> }
     }
 }

@@ -9,7 +9,7 @@ pub fn sidebar() -> Html {
         .expect("No current route defined");
 
     let home_classes = {
-        if (current_route == Route::Home) {
+        if current_route == Route::Home {
             classes!("nav-link", "active")
         } else {
             classes!("nav-link")
@@ -17,7 +17,7 @@ pub fn sidebar() -> Html {
     };
 
     let rustaceans_classes = {
-        if (current_route == Route::Rustaceans) {
+        if current_route == Route::Rustaceans {
             classes!("nav-link", "active")
         } else {
             classes!("nav-link")
@@ -25,7 +25,7 @@ pub fn sidebar() -> Html {
     };
 
     let crates_classes = {
-        if (current_route == Route::Crates) {
+        if current_route == Route::Crates {
             classes!("nav-link", "active")
         } else {
             classes!("nav-link")
