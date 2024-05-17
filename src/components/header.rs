@@ -2,6 +2,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use chrono::NaiveDateTime;
 
+use crate::components::button::Button;
 use crate::Route;
 use crate::contexts::{CurrentUserContext,
      CurrentUserDispatchActions,
@@ -34,7 +35,7 @@ pub fn header() -> Html {
                         <p class="lead mb-3">{"Your ID is: "}{&user.id}</p>
                         <p class="mb-4">{"Creation Date: "}{date_str}</p>
                     </div>
-                    <button class="btn btn-danger" onclick={onclick}>{ "Logout" }</button>
+                    <Button btn_type={None::<String>} class="danger" onclick={onclick} message="Logout"/>
                 </div>
             }
         },

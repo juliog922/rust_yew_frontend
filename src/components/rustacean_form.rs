@@ -2,24 +2,40 @@ use web_sys::HtmlInputElement;
 use yew::{prelude::*, platform::spawn_local};
 use yew_router::prelude::*;
 
-use crate::api::rustaceans::api_rustacean_create;
+use crate::api::rustaceans::{api_rustacean_create, api_rustacean_update, Rustacean};
 use crate::components::{
     input::Input,
-    alert::Alert};
+    alert::Alert,
+    button::Button};
 use crate::Route;
 use crate::contexts::CurrentUserContext;
 
+#[derive(Properties, PartialEq)]
+pub struct Props {
+    pub rustacean: Option<Rustacean>
+}
+
 #[function_component(RustaceanForm)]
-pub fn rustacean_form() -> Html {
+pub fn rustacean_form(props: &Props) -> Html {
     let navigator = use_navigator()
         .expect("Navigator not available");
     let current_user_ctx = use_context::<CurrentUserContext>()
         .expect("Current user context is missing");
 
-    let name_handle = use_state(String::default);
+    let name_handle = use_state(|| {
+        if let Some(r) = &props.rustacean {
+            return r.name.clone();
+        }
+        String::default()
+    });
     let name = (*name_handle).clone();
 
-    let email_handle = use_state(String::default);
+    let email_handle = use_state(|| {
+        if let Some(r) = &props.rustacean {
+            return r.email.clone();
+        }
+        String::default()
+    });
     let email = (*email_handle).clone();
 
     let error_message_handle = use_state(String::default);
@@ -42,6 +58,8 @@ pub fn rustacean_form() -> Html {
     let cloned_name = name.clone();
     let cloned_email = email.clone();
 
+    let cloned_rustacean = props.rustacean.clone();
+
     let onsubmit = Callback::from(move |e: SubmitEvent| {
         e.prevent_default();
 
@@ -52,15 +70,32 @@ pub fn rustacean_form() -> Html {
         let cloned_navigator = navigator.clone();
         let cloned_user_ctx = current_user_ctx.clone();
 
+        let cloned_rustacean = cloned_rustacean.clone();
+
         match &cloned_user_ctx.token {
             Some(token) => {
                 let cloned_token = token.clone();
+                
                 spawn_local(async move{
-                    match api_rustacean_create(&cloned_token, cloned_name.clone(), cloned_email.clone()).await {
-                        Ok( _ ) => {
-                            cloned_navigator.push(&Route::Rustaceans)
-                        },
-                        Err(e) => cloned_error_handle.set(e.to_string()),
+                    if let Some(rustacean) = cloned_rustacean {
+                        match api_rustacean_update(
+                            &cloned_token, 
+                            rustacean.id, 
+                            cloned_name.clone(), 
+                            cloned_email.clone()
+                        ).await {
+                            Ok( _ ) => cloned_navigator.push(&Route::Rustaceans),
+                            Err(e) => cloned_error_handle.set(e.to_string()),
+                        }
+                    } else {
+                        match api_rustacean_create(
+                            &cloned_token, 
+                            cloned_name.clone(), 
+                            cloned_email.clone()
+                        ).await {
+                            Ok( _ ) => cloned_navigator.push(&Route::Rustaceans),
+                            Err(e) => cloned_error_handle.set(e.to_string()),
+                        }
                     }
                 });
             },
@@ -93,7 +128,7 @@ pub fn rustacean_form() -> Html {
                     onchange={email_changed}
                 />
             </div>
-            <button type="submit" class="btn btn-primary">{"Save"}</button>
+            <Button btn_type="submit" class="primary" onclick={None::<Callback<MouseEvent>>} message="Save"/>
         </form>
     }
 }

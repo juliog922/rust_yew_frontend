@@ -5,7 +5,9 @@ use yew_router::prelude::*;
 
 use crate::components::{
     input::Input,
-    alert::Alert};
+    alert::Alert,
+    button::Button
+};
 use crate::api::user::{
     api_login,
     api_me,
@@ -109,7 +111,7 @@ pub fn login_form() -> Html {
                     onchange={password_changed}
                 />
             </div>
-            <button type="submit" class="btn btn-primary">{"Login"}</button>
+            <Button btn_type="submit" class="primary" onclick={None::<Callback<MouseEvent>>} message="Login"/>
         </form>
     }
 }

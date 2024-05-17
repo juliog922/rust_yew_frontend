@@ -1,19 +1,18 @@
+
 use yew::prelude::*;
 use yew_router::prelude::*;
 
 use crate::hooks::use_rustaceans;
 use crate::Route;
-use crate::contexts::CurrentUserContext;
 
+#[derive(Properties, PartialEq)]
+pub struct Props {
+    pub token: AttrValue,
+}
 
 #[function_component(RustaceanList)]
-pub fn rustacean_list() -> HtmlResult {
-
-    let current_user_ctx = use_context::<CurrentUserContext>()
-        .expect("Current user context is missing");
-    let token = &current_user_ctx.token
-        .as_ref().expect("Token not found");
-    let rustaceans = use_rustaceans(&token)?;   
+pub fn rustacean_list(props: &Props) -> HtmlResult {
+    let rustaceans = use_rustaceans(&props.token)?;   
     Ok(html! {
         <>
             <p>
@@ -30,29 +29,33 @@ pub fn rustacean_list() -> HtmlResult {
                     <th>{ "Operations" }</th>
                 </thead>
                 <tbody>
-                    {
-                        rustaceans.into_iter().map(|rustacean|{
-                            html! {
-                                <tr>
-                                    <td>{rustacean.id}</td>
-                                    <td>{rustacean.name}</td>
-                                    <td>{rustacean.email}</td>
-                                    <td>{rustacean.created_at}</td>
-                                    <td>
-                                        <Link<Route> to={Route::RustaceansAdd}>
-                                            {"edit"}
-                                        </Link<Route>>
-                                        <span> {"/"} </span>
-                                        <Link<Route> to={Route::RustaceansAdd}>
-                                            {"delete"}
-                                        </Link<Route>>
-                                    </td>
-                                </tr>
+                {
+                    rustaceans.into_iter().map(|rustacean|{
+                        html! {
+                            <tr>
+                                <td>{rustacean.id}</td>
+                                <td>{rustacean.name}</td>
+                                <td>{rustacean.email}</td>
+                                <td>{rustacean.created_at}</td>
+                                <td>
+                                    <Link<Route> 
+                                        to={Route::RustaceansEdit { id: rustacean.id }} 
+                                        classes="link-secondary"
+                                    >
+                                        {"edit"}
+                                    </Link<Route>>
+                                    <span> {"/"} </span>
+                                    <Link<Route> to={Route::RustaceansDelete { id: rustacean.id }} classes="link-danger">
+                                        {"delete"}
+                                    </Link<Route>>
+                                </td>
+                            </tr>
                             }
                         }).collect::<Html>()
                     }
-                </tbody>
-            </table>
-        </>
-    })
-}
+                    </tbody>
+                </table>
+            </>
+        })
+    }
+    

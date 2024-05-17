@@ -1,8 +1,9 @@
 use yew::prelude::*;
 
 use crate::components::{
-    sidebar::SideBar,
-    rustacean_form::RustaceanForm};
+    rustacean_form::RustaceanForm, 
+    sidebar::SideBar
+};
 
 #[function_component(RustaceansAdd)]
 pub fn rustaceans_add() -> Html {
@@ -12,8 +13,8 @@ pub fn rustaceans_add() -> Html {
                 <div class="col-sm-auto">
                 <SideBar />
                 </div>
-                <div class="col-md-10">
-                    <RustaceanForm />
+                <div class="col-sm-auto offset-md-2">
+                    <RustaceanForm rustacean={None} />
                 </div>
             </div>
         </div>
