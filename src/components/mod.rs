@@ -6,3 +6,7 @@ pub mod sidebar;
 pub mod rustacean_list;
 pub mod rustacean_form;
 pub mod button;
+pub mod crate_list;
+pub mod crate_form;
+pub mod select;
+pub mod textarea;
