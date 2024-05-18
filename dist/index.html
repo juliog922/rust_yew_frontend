@@ -5,9 +5,11 @@
         <title>Yew App</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         
+        <link rel="stylesheet" href="/style-fd8b2a82cf01a6e6.css" integrity="sha384&#x2D;a2wixeEPAIYoqWC&#x2F;xTWV5h53dxdV0cPk4R&#x2B;mxdSh73t7nyDCCX1IyHmHBd6VuRax"/>
+        
 <script type="module">
-import init, * as bindings from '/frontend-f06f35620248658e.js';
-const wasm = await init('/frontend-f06f35620248658e_bg.wasm');
+import init, * as bindings from '/frontend-6b5ace96341d534c.js';
+const wasm = await init('/frontend-6b5ace96341d534c_bg.wasm');
 
 
 window.wasmBindings = bindings;
@@ -17,6 +19,6 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script>
     
-<link rel="modulepreload" href="/frontend-f06f35620248658e.js" crossorigin=anonymous integrity="sha384-Rr6qx/eQLk/A1GD2gI6Ukt3uS9nA/T9OSJSQdc+GbC9fRZgwaz2MQfvDzdkaECWM">
-<link rel="preload" href="/frontend-f06f35620248658e_bg.wasm" crossorigin=anonymous integrity="sha384-UEhfG7Uk0n3Cl/rVP9L9Icz3Q5XF8/qpUtEdeaZ7Su3/jZnmm/0U220lFAzBPUNV" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="/frontend-6b5ace96341d534c.js" crossorigin=anonymous integrity="sha384-/oH+4ApVpz9ewWg2yoL8nPQAZPxl6I3rdIJmF5792QunYL8tqeEPcUcOyRRST6f6">
+<link rel="preload" href="/frontend-6b5ace96341d534c_bg.wasm" crossorigin=anonymous integrity="sha384-yKwFwbCnYGUCQLT/VcXoSFyYeVgvQ5Yy44/fkIR69ImdQBz486b6Gw275oA8JxDz" as="fetch" type="application/wasm"></head>
 </html>
